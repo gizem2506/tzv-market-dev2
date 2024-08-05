@@ -1,0 +1,12 @@
+{
+    "build": {
+      "env": {
+        "DATABASE_URL": "postgresql://postgres:12345@localhost:5432/tzv-market-db?schema=public"
+      },
+      "commands": [
+        "npx prisma generate --schema=src/prisma/schema.prisma",
+        "next build"
+      ]
+    }
+  }
+  
