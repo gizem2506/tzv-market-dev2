@@ -1,7 +1,7 @@
 "use client";
 
 import Grid from "@mui/material/Grid";
-import { AccountForm } from "../checkout-alt-form/account-form";
+import AccountForm from "../checkout-alt-form/account-form";
 import { CheckoutSummary } from "../checkout-summery";
 
 export default function CheckoutPageView() {
