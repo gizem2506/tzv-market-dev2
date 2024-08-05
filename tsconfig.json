@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler", 
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./*" //@/ koyarsan kök dizin olur
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/app/api/auth/[...nextauth]/route.js",
+    "src/app/api/admin/route.js",
+    "middleware.js",
+    "auth.config.js",
+    "routes.js",
+    "next-auth.d.ts",
+    "src/pages-sections/sessions/page-view/new-verification-form.jsx",
+    "src/app/api/categories/route.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

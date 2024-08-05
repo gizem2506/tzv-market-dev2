@@ -1,0 +1,30 @@
+"use server";
+
+import { db } from "../lib/db";
+import { getUserByMail } from "../data/user";
+import { getVerificationTokenByToken } from "../data/verification-token";
+
+export const newVerification = async (token) => {
+  const existingToken = await getVerificationTokenByToken(token);
+  if (!existingToken) return { error: "Token mevcut değil!" };
+
+  const hasExpired = new Date(existingToken.expires) < new Date();
+  if (hasExpired) return { error: "Token'ın süresi doldu!" };
+
+  const existingUser = await getUserByMail(existingToken.email);
+  if (!existingUser) return { error: "E-posta mevcut değil!" };
+
+  await db.user.update({
+    where: { id: existingUser.id },
+    data: {
+      emailVerified: new Date(),
+      email: existingToken.email,
+    },
+  });
+
+  await db.verificationToken.delete({
+    where: { id: existingToken.id },
+  });
+
+  return { success: "E-posta doğrulandı!" };
+};

@@ -1,0 +1,1 @@
+export { default as PersonelSettingsPageView } from "./personel-settings";
