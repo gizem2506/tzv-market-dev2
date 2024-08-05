@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prisma:generate": "prisma generate --schema=src/prisma/schema.prisma",
     "build": "next build",
     "start": "next start",
     "set-root": "bazaar set-root",
     "lint": "next lint",
+    "postinstall": "prisma generate",
     "fix:prettier": "prettier --write . '!.next' '!.node_modules' '!tools/output/**/.next'"
   },
   "dependencies": {
