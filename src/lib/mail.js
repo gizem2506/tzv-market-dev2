@@ -22,7 +22,7 @@ export const sendVerificationEmail = async (email, token) => {
   const confirmLink = `${domain}/new-verification?token=${token}`;
   const firstName = "Gizem"
 
-  const source = fs.readFileSync(path.join(process.cwd(), 'public/email/email-activation.html'), 'utf8');
+  const source = fs.readFileSync('public/email/email-activation.html', 'utf8');
   const template = handlebars.compile(source);
   const html = template({ confirmLink, firstName });
 
