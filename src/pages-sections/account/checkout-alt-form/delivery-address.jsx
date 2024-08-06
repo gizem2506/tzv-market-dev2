@@ -12,7 +12,7 @@ import Heading from "./heading";
 
 const DeliveryAddress = ({ values, handleFieldValueChange }) => {
   const [addressList, setAddressList] = useState([]);
-  const [editAddressId, setEditAddressId] = useState(0);
+  const [editAddressId, setEditAddressId] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -74,84 +74,96 @@ const DeliveryAddress = ({ values, handleFieldValueChange }) => {
     >
       <Heading number={1} title="Teslimat Adresleri" mb={2} />
       <Grid container spacing={3}>
-        {shippingAddresses.map((item) => (
-          <Grid item md={4} sm={6} xs={12} key={item.id}>
-            <Card
-              onClick={() => handleFieldValueChange(item.address_name, "address")}
-              sx={{
-                padding: 2,
-                boxShadow: "none",
-                cursor: "pointer",
-                border: "1px solid",
-                position: "relative",
-                backgroundColor: "grey.100",
-                borderColor: item.address_name === values.address ? "primary.main" : "transparent",
-              }}
-            >
-              <FlexBox position="absolute" top={5} right={5}>
-                <IconButton size="small" onClick={() => setEditAddressId(item.id)}>
-                  <ModeEditOutline fontSize="inherit" />
-                </IconButton>
-                <IconButton size="small" color="error" onClick={() => handleDeleteAddress(item.id)}>
-                  <DeleteOutline fontSize="inherit" />
-                </IconButton>
-              </FlexBox>
+        {shippingAddresses.length > 0 ? (
+          shippingAddresses.map((item) => (
+            <Grid item md={4} sm={6} xs={12} key={item.id}>
+              <Card
+                onClick={() => handleFieldValueChange(item.address_name, "address")}
+                sx={{
+                  padding: 2,
+                  boxShadow: "none",
+                  cursor: "pointer",
+                  border: "1px solid",
+                  position: "relative",
+                  backgroundColor: "grey.100",
+                  borderColor: item.address_name === values.address ? "primary.main" : "transparent",
+                }}
+              >
+                <FlexBox position="absolute" top={5} right={5}>
+                  <IconButton size="small" onClick={() => setEditAddressId(item.id)}>
+                    <ModeEditOutline fontSize="inherit" />
+                  </IconButton>
+                  <IconButton size="small" color="error" onClick={() => handleDeleteAddress(item.id)}>
+                    <DeleteOutline fontSize="inherit" />
+                  </IconButton>
+                </FlexBox>
 
-              <H6 mb={0.5}>{item.name}</H6>
-              <H5 color="grey.700">{item.address_name}</H5>
-              {item.receiver_name && (
-                <Paragraph color="grey.700">{item.receiver_name}</Paragraph>
-              )}
-              <Paragraph color="grey.700">{item.landline_phone}</Paragraph>
-              <Paragraph color="grey.700">{item.cell_phone}</Paragraph>
-              <Paragraph color="grey.700">{item.address_description}</Paragraph>
-              <Paragraph color="grey.700">{item.city}</Paragraph>
-              <Paragraph color="grey.700">{item.district}</Paragraph>
-              <Paragraph color="grey.700">{item.zipCode}</Paragraph>
-            </Card>
+                <H6 mb={0.5}>{item.name}</H6>
+                <H5 color="grey.700">{item.address_name}</H5>
+                {item.receiver_name && (
+                  <Paragraph color="grey.700">{item.receiver_name}</Paragraph>
+                )}
+                <Paragraph color="grey.700">{item.landline_phone}</Paragraph>
+                <Paragraph color="grey.700">{item.cell_phone}</Paragraph>
+                <Paragraph color="grey.700">{item.address_description}</Paragraph>
+                <Paragraph color="grey.700">{item.city}</Paragraph>
+                <Paragraph color="grey.700">{item.district}</Paragraph>
+                <Paragraph color="grey.700">{item.zipCode}</Paragraph>
+              </Card>
+            </Grid>
+          ))
+        ) : (
+          <Grid item xs={12}>
+            <Paragraph>Teslimat adresi ekleyiniz.</Paragraph>
           </Grid>
-        ))}
+        )}
       </Grid>
 
       <Heading number={2} title="Fatura Adresleri" mb={2} mt={2} />
       <Grid container spacing={3}>
-        {billingAddresses.map((item) => (
-          <Grid item md={4} sm={6} xs={12} key={item.id}>
-            <Card
-              onClick={() => handleFieldValueChange(item.address_name, "address")}
-              sx={{
-                padding: 2,
-                boxShadow: "none",
-                cursor: "pointer",
-                border: "1px solid",
-                position: "relative",
-                backgroundColor: "grey.100",
-                borderColor: item.address_name === values.address ? "primary.main" : "transparent",
-              }}
-            >
-              <FlexBox position="absolute" top={5} right={5}>
-                <IconButton size="small" onClick={() => setEditAddressId(item.id)}>
-                  <ModeEditOutline fontSize="inherit" />
-                </IconButton>
-                <IconButton size="small" color="error" onClick={() => handleDeleteAddress(item.id)}>
-                  <DeleteOutline fontSize="inherit" />
-                </IconButton>
-              </FlexBox>
+        {billingAddresses.length > 0 ? (
+          billingAddresses.map((item) => (
+            <Grid item md={4} sm={6} xs={12} key={item.id}>
+              <Card
+                onClick={() => handleFieldValueChange(item.address_name, "address")}
+                sx={{
+                  padding: 2,
+                  boxShadow: "none",
+                  cursor: "pointer",
+                  border: "1px solid",
+                  position: "relative",
+                  backgroundColor: "grey.100",
+                  borderColor: item.address_name === values.address ? "primary.main" : "transparent",
+                }}
+              >
+                <FlexBox position="absolute" top={5} right={5}>
+                  <IconButton size="small" onClick={() => setEditAddressId(item.id)}>
+                    <ModeEditOutline fontSize="inherit" />
+                  </IconButton>
+                  <IconButton size="small" color="error" onClick={() => handleDeleteAddress(item.id)}>
+                    <DeleteOutline fontSize="inherit" />
+                  </IconButton>
+                </FlexBox>
 
-              <H6 mb={0.5}>{item.name}</H6>
-              <H5 color="grey.700">{item.address_name}</H5>
-              {item.receiver_name && (
-                <Paragraph color="grey.700">{item.receiver_name}</Paragraph>
-              )}
-              <Paragraph color="grey.700">{item.landline_phone}</Paragraph>
-              <Paragraph color="grey.700">{item.cell_phone}</Paragraph>
-              <Paragraph color="grey.700">{item.address_description}</Paragraph>
-              <Paragraph color="grey.700">{item.city}</Paragraph>
-              <Paragraph color="grey.700">{item.district}</Paragraph>
-              <Paragraph color="grey.700">{item.zipCode}</Paragraph>
-            </Card>
+                <H6 mb={0.5}>{item.name}</H6>
+                <H5 color="grey.700">{item.address_name}</H5>
+                {item.receiver_name && (
+                  <Paragraph color="grey.700">{item.receiver_name}</Paragraph>
+                )}
+                <Paragraph color="grey.700">{item.landline_phone}</Paragraph>
+                <Paragraph color="grey.700">{item.cell_phone}</Paragraph>
+                <Paragraph color="grey.700">{item.address_description}</Paragraph>
+                <Paragraph color="grey.700">{item.city}</Paragraph>
+                <Paragraph color="grey.700">{item.district}</Paragraph>
+                <Paragraph color="grey.700">{item.zipCode}</Paragraph>
+              </Card>
+            </Grid>
+          ))
+        ) : (
+          <Grid item xs={12}>
+            <Paragraph>Fatura adresi ekleyiniz.</Paragraph>
           </Grid>
-        ))}
+        )}
       </Grid>
 
       {editAddressId && (
