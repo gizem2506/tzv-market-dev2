@@ -24,7 +24,7 @@ export const receivePaid = async (payment) => {
     },
     {
       headers: {
-        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
       },
     }
   );

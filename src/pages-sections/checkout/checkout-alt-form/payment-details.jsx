@@ -1,9 +1,17 @@
+"use client" //tüm sıkıntı burada
 import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 
 import Heading from "./heading";
 import { useRouter } from "next/navigation";
 import { receivePaid } from "../../../services/payment-services";
+import axios from "axios";
+
+const paymentURL = "https://halici-payment.herokuapp.com/";
+const paymentToken = "UztwkXN-5AoChSe4AO9YPQ";
+const paymentSuccessUrl = "https://tzv-market-dev2.vercel.app/payments/success" ;
+const paymentErrorUrl = "https://tzv-market-dev2.vercel.app/payments/error"
+
 const PaymentDetails = () => {
   const { push } = useRouter();
 
@@ -16,9 +24,24 @@ const PaymentDetails = () => {
       price: 100,
       email: "gzm@test.com",
     };
-    receivePaid(fakeData)
+
+    axios.post(
+      `${paymentURL}payments/checkout`,
+      {
+        ...fakeData,
+        success_callback: paymentSuccessUrl,
+        error_callback: paymentErrorUrl,
+        token: paymentToken,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then(res=> console.log(res)).catch(err => console.log(err));
+    /* receivePaid(fakeData)
       .then((x) => {
-        console.log(data);
+        console.log(x);
         if (data.payment_url) {
           alert("GİTTİ");
           push(data.payment_url);
@@ -26,8 +49,8 @@ const PaymentDetails = () => {
       })
       .catch((e) => {
         alert("Hata oldu");
-        console.log({e});
-      });
+        console.log({ e });
+      }); */
     return <>TEST</>;
   };
 
