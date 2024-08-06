@@ -1,0 +1,23 @@
+{
+    "builds": [
+      {
+        "src": "src/**/*.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/public/uploads/(.*)",
+        "dest": "/public/uploads/$1"
+      },
+      {
+        "src": "/public/email/(.*)",
+        "dest": "/public/email/$1"
+      },
+      {
+        "src": "/public/assets/(.*)",
+        "dest": "/public/assets/$1"
+      }
+    ]
+  }
+  
