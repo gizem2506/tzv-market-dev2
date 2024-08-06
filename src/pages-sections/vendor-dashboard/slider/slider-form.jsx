@@ -9,7 +9,7 @@ import * as yup from "yup";
 import DropZone from "../../../components/DropZone";
 import { FlexBox } from "../../../components/flex-box";
 import { UploadImageBox, StyledClear } from "../styles";
-import { uploadFile } from "@/src/lib/file";
+import { uploadFile } from "../../../lib/file";
 import { addSlider } from "../../../services/slider-services";
 import CKEditors from "../../../components/CKEditors";
 import { H6 } from "../../../components/Typography";
