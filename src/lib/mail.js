@@ -1,7 +1,7 @@
 "use server";
 const nodemailer = require("nodemailer");
-import handlebars from 'handlebars';
-import fs from 'fs'
+import handlebars from "handlebars";
+import fs from "fs";
 
 const domain = process.env.NEXT_PUBLIC_APP_URL;
 const host = process.env.MAIL_HOST;
@@ -20,33 +20,38 @@ const transporter = nodemailer.createTransport({
 
 export const sendVerificationEmail = async (email, token) => {
   const confirmLink = `${domain}/new-verification?token=${token}`;
-  const firstName = "Gizem"
+  const firstName = "Gizem";
 
-  const source = fs.readFileSync('/public/email/email-activation.html', 'utf8');
+  /* const source = fs.readFileSync('/public/email/email-activation.html', 'utf8');
   const template = handlebars.compile(source);
-  const html = template({ confirmLink, firstName });
+  const html = template({ confirmLink, firstName }); */
+  const htmlString = `Lütfen bu bağlantıya gidin: ${confirmLink}`;
 
   await transporter.sendMail({
     from: "info@wiasoft.com",
     to: email,
     subject: "E-posta adresinizi onaylayın",
-    html,
+    //html,
+    htmlString,
   });
 };
 
 //Kargoya verme için
 export const sendVerificationEmailCargo = async (email, token) => {
   const confirmLink = `${domain}/new-verification?token=${token}`;
-  const firstName = "Gizem"
-  const source = fs.readFileSync('/public/email/cargo-activation.html', 'utf8');
+  const firstName = "Gizem";
+  /* const source = fs.readFileSync('/public/email/cargo-activation.html', 'utf8');
   const template = handlebars.compile(source);
-  const html = template({ confirmLink, firstName });
+  const html = template({ confirmLink, firstName }); */
+
+  const htmlString = `Lütfen bu bağlantıya gidin: ${confirmLink}`;
 
   await transporter.sendMail({
     from: "info@wiasoft.com",
     to: email,
     subject: "TZV Market Sipariş Bilgileri",
-    html,
+    //html,
+    htmlString,
   });
 };
 export const sendPasswordResetEmail = async (email, token) => {
@@ -70,15 +75,15 @@ export const sendEmailTest = async (email) => {
 };
 
 export const sendTwoFactorTokenEmail = async (email, token) => {
-  const source = fs.readFileSync('/public/email/2fa-code.html', 'utf8');
+  /* const source = fs.readFileSync("/public/email/2fa-code.html", "utf8");
   const template = handlebars.compile(source);
-  const html = template({ token });
+  const html = template({ token }); */
 
   await transporter.sendMail({
     from: "info@wiasoft.com",
     to: email,
     subject: "2FA Code",
-    html
-    //html: `<p>Your 2FA Code:${token}</p>`,
+    //html,
+    html: `<p>Your 2FA Code:${token}</p>`,
   });
-}; // tekrar yolla
+}; // tekrar yolla..
