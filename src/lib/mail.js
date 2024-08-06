@@ -1,7 +1,7 @@
 "use server";
 const nodemailer = require("nodemailer");
 import handlebars from 'handlebars';
-import fs from 'fs'
+import { promises as fs } from 'fs';
 
 const domain = process.env.NEXT_PUBLIC_APP_URL;
 const host = process.env.MAIL_HOST;
@@ -22,7 +22,7 @@ export const sendVerificationEmail = async (email, token) => {
   const confirmLink = `${domain}/new-verification?token=${token}`;
   const firstName = "Gizem"
 
-  const source = fs.readFileSync('public/email/email-activation.html', 'utf8');
+  const source = await fs.readFile('./public/email/email-activation.html', 'utf8');
   const template = handlebars.compile(source);
   const html = template({ confirmLink, firstName });
 
@@ -38,7 +38,7 @@ export const sendVerificationEmail = async (email, token) => {
 export const sendVerificationEmailCargo = async (email, token) => {
   const confirmLink = `${domain}/new-verification?token=${token}`;
   const firstName = "Gizem"
-  const source = fs.readFileSync('public/email/cargo-activation.html', 'utf8');
+  const source = fs.readFileSync('./public/email/cargo-activation.html', 'utf8');
   const template = handlebars.compile(source);
   const html = template({ confirmLink, firstName });
 
@@ -70,7 +70,7 @@ export const sendEmailTest = async (email) => {
 };
 
 export const sendTwoFactorTokenEmail = async (email, token) => {
-  const source = fs.readFileSync('public/email/2fa-code.html', 'utf8');
+  const source = fs.readFileSync('./public/email/2fa-code.html', 'utf8');
   const template = handlebars.compile(source);
   const html = template({ token });
 
