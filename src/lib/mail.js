@@ -22,7 +22,7 @@ export const sendVerificationEmail = async (email, token) => {
   const confirmLink = `${domain}/new-verification?token=${token}`;
   const firstName = "Gizem"
 
-  const source = fs.readFileSync('public/email/email-activation.html', 'utf8');
+  const source = fs.readFileSync('/public/email/email-activation.html', 'utf8');
   const template = handlebars.compile(source);
   const html = template({ confirmLink, firstName });
 
@@ -38,7 +38,7 @@ export const sendVerificationEmail = async (email, token) => {
 export const sendVerificationEmailCargo = async (email, token) => {
   const confirmLink = `${domain}/new-verification?token=${token}`;
   const firstName = "Gizem"
-  const source = fs.readFileSync('public/email/cargo-activation.html', 'utf8');
+  const source = fs.readFileSync('/public/email/cargo-activation.html', 'utf8');
   const template = handlebars.compile(source);
   const html = template({ confirmLink, firstName });
 
@@ -70,7 +70,7 @@ export const sendEmailTest = async (email) => {
 };
 
 export const sendTwoFactorTokenEmail = async (email, token) => {
-  const source = fs.readFileSync('public/email/2fa-code.html', 'utf8');
+  const source = fs.readFileSync('/public/email/2fa-code.html', 'utf8');
   const template = handlebars.compile(source);
   const html = template({ token });
 
@@ -81,4 +81,4 @@ export const sendTwoFactorTokenEmail = async (email, token) => {
     html
     //html: `<p>Your 2FA Code:${token}</p>`,
   });
-};
+}; // tekrar yolla
