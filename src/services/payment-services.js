@@ -30,13 +30,3 @@ export const receivePaid = async (payment) => {
   );
   return result;
 };
-
-/**
- *   "user_id": "6244",
-  "user_name": "Gizem Altay",
-  "order_id": "9999",
-  "product_name": "1722513502",
-  "price": 9,
-  "email": "gzm@test.com",
-
- */

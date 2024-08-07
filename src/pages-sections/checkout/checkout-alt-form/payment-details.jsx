@@ -1,21 +1,15 @@
-"use client" //tüm sıkıntı burada
+"use client";
+
 import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
-
 import Heading from "./heading";
 import { useRouter } from "next/navigation";
-import { receivePaid } from "../../../services/payment-services";
 import axios from "axios";
-
-const paymentURL = "https://halici-payment.herokuapp.com/";
-const paymentToken = "UztwkXN-5AoChSe4AO9YPQ";
-const paymentSuccessUrl = "https://tzv-market-dev2.vercel.app/payments/success" ;
-const paymentErrorUrl = "https://tzv-market-dev2.vercel.app/payments/error"
 
 const PaymentDetails = () => {
   const { push } = useRouter();
 
-  const odemeYap = () => {
+  const odemeYap = async () => {
     const fakeData = {
       user_id: "6244",
       user_name: "Gizem Altay",
@@ -25,33 +19,22 @@ const PaymentDetails = () => {
       email: "gzm@test.com",
     };
 
-    axios.post(
-      `${paymentURL}payments/checkout`,
-      {
-        ...fakeData,
-        success_callback: paymentSuccessUrl,
-        error_callback: paymentErrorUrl,
-        token: paymentToken,
-      },
-      {
+    try {
+      const res = await axios.post('/api/receivePaid', fakeData, {
         headers: {
           "Content-Type": "application/json",
         },
+      });
+      console.log(res);
+      const { payment_url } = res.data;
+      if (payment_url) {
+        alert("GİTTİ");
+        push(payment_url);
       }
-    ).then(res=> console.log(res)).catch(err => console.log(err));
-    /* receivePaid(fakeData)
-      .then((x) => {
-        console.log(x);
-        if (data.payment_url) {
-          alert("GİTTİ");
-          push(data.payment_url);
-        }
-      })
-      .catch((e) => {
-        alert("Hata oldu");
-        console.log({ e });
-      }); */
-    return <>TEST</>;
+    } catch (err) {
+      alert("Hata oldu");
+      console.log({ err });
+    }
   };
 
   return (
